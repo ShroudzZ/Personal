@@ -11,7 +11,7 @@ namespace MyProject
     {
         public int Index { get; set; }
         public string SubjectName { get; set; }
-        public long Result { get; set; }
+        public double Result { get; set; }
 
         public Subject(string n, int i)
         {
@@ -19,11 +19,11 @@ namespace MyProject
             Index = i;
             Result = Calculation();
         }
-        private long Calculation()
+        private double Calculation()
         {
 
             var dt = new DataTable();
-            long result = Convert.ToInt64(dt.Compute(SubjectName, ""));
+            double result = Convert.ToDouble(dt.Compute(SubjectName, ""));
             return result;
         }
     }
