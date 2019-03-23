@@ -16,6 +16,7 @@ namespace MyProject
         public int Min { get; set; }
         public int Max { get; set; }
         private List<string> _type = new List<string> { "-", "+", "/", "*" };
+        Random r = new Random();
         public Issue(int count, int operatorCount = 10, int min = 2, int max = 20)
         {
             SubjectCount = count;
@@ -35,9 +36,8 @@ namespace MyProject
             {
                 for (var j = 0; j < OperatorCount+1; j++)
                 {
-                    Thread.Sleep(20);
-                    num = new Random().Next(Min, Max);
-                    index = new Random().Next(0, _type.Count);
+                    num = r.Next(Min, Max);
+                    index = r.Next(0, _type.Count);
                     result += _type[index] + num;
                     if (_type[index].Equals("-"))
                     {
