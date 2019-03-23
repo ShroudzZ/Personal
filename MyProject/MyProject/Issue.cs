@@ -10,14 +10,18 @@ namespace MyProject
 {
     public class Issue
     {
-        public int Count { get; set; }
+        public int SubjectCount { get; set; }
+        public int OperatorCount { get; set; }
         public List<Subject> SubjectList { get; set; }
-        public int Min { get; set; } = 2;
-        public int Max { get; set; } = 20;
+        public int Min { get; set; }
+        public int Max { get; set; }
         private List<string> _type = new List<string> { "-", "+", "/", "*" };
-        public Issue(int count)
+        public Issue(int count, int operatorCount = 10, int min = 2, int max = 20)
         {
-            Count = count;
+            SubjectCount = count;
+            OperatorCount = operatorCount;
+            Min = min;
+            Max = max;
             CreateSubject();
         }
 
@@ -27,17 +31,19 @@ namespace MyProject
             int num = 0;
             int index = 0;
             SubjectList = new List<Subject>();
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < SubjectCount; i++)
             {
-                for (var j = 0; j < 4; j++)
+                for (var j = 0; j < OperatorCount+1; j++)
                 {
                     Thread.Sleep(20);
                     num = new Random().Next(Min, Max);
                     index = new Random().Next(0, _type.Count);
                     result += _type[index] + num;
-                    _type.RemoveAt(index);
-
-                    if (j.Equals(3))
+                    if (_type[index].Equals("-"))
+                    {
+                        _type.RemoveAt(index);
+                    }
+                    if (j.Equals(OperatorCount))
                     {
                         result = result.Substring(1, result.Length - 1);
                         //result = Divisible(result);
@@ -100,7 +106,7 @@ namespace MyProject
                     newL = newleft + "/" + right;
                 }
 
-                
+
                 result = r.Replace(left + "/" + right, newL); ;
             }
             return result;
